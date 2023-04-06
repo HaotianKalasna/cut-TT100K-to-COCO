@@ -84,7 +84,7 @@ for index in imgs :
             # 添加切分图片信息至images
             image = dict()
             image["id"]         = id[folder]-1
-            image["file_name"]  = "%08d.png"%(id[folder])
+            image["file_name"]  = "%08d.png"%(id[folder]-1)
             image["width"]      = cut_width
             image["height"]     = cut_height
             coco_images[folder].append(image)
@@ -103,10 +103,10 @@ for index in imgs :
                 id[folder+"anno"] = id[folder+"anno"] + 1 
 
             # 将图片存储到相应文件夹
-            cut_img_path = coco_path + folder + "2017/%08d.png"%(id[folder])
+            cut_img_path = coco_path + folder + "2017/%08d.png"%(id[folder]-1)
             cut_img = img[y:y+cut_height, x:x+cut_width]
             cv2.imwrite(cut_img_path, cut_img)
-            print("img: %08d saved"%(id["trainval"]+id["test"]))
+            print("img: %08d saved"%(id["trainval"]+id["test"]-1))
             
 train_json_data["images"]       = coco_images["train"]
 train_json_data["annotations"]  = coco_annotations["train"]
