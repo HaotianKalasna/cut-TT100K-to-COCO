@@ -95,7 +95,7 @@ for index in imgs :
                 id[folder+"anno"] = id[folder+"anno"] + 1 
 
             # 将图片存储到相应文件夹
-            cut_img_path = coco_path + folder + "2017/%08d.png"%(id[folder])
+            cut_img_path = coco_path + folder + "/%08d.png"%(id[folder])
             cut_img = img[y:y+cut_height, x:x+cut_width]
             cv2.imwrite(cut_img_path, cut_img)
             print("img: %08d saved"%(id["trainval"]+id["test"]-1))
