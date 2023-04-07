@@ -2,10 +2,28 @@ import os
 import cv2
 import json
 
-anno_dict = dict(i=0,p=1,w=2)
 def anno2id(anno):
-    global anno_dict
-    return anno_dict[anno[0]]
+    c1, c2 = anno[0:2]
+    if c1 == 'i':
+        if c2 == 'l':
+            id = 3
+        else:
+            id = 0
+    elif c1 == 'p':
+        if c2 in ['h','m','w','a']:
+            id = 7
+        elif c2 in ['c','d']:
+            id = 5
+        elif c2 in ['e','g','s']:
+            id = 6
+        elif c2 == 'l':
+            id = 4
+        elif c2 == 'r':
+            id = 8
+        else:
+            id = 1
+    else:
+        id = 2
 
 cut_height = 128
 cut_width = 128
@@ -24,7 +42,16 @@ with open(data_path+"annotations.json") as f:
 # 准备用于生成三个json文件的dict
 trainval_json_data = dict(images=[],annotations=[],categories=[])
 test_json_data  = dict(images=[],annotations=[],categories=[])
-categories = [dict(id=0, name="indication"),dict(id=1, name="prohibition"),dict(id=2, name="warnning")]
+categories = [dict(id=0, name="indication"),
+              dict(id=1, name="prohibition"),
+              dict(id=2, name="warnning"),
+              dict(id=3, name="minspeedlimit"),
+              dict(id=4, name="maxspeedlimit"),
+              dict(id=5, name="inspection"),
+              dict(id=6, name="giveway"),
+              dict(id=7, name="hmwalimit"),
+              dict(id=8, name="speedlimitremove"),
+              ]
 trainval_json_data["categories"]   = categories
 test_json_data["categories"]    = categories
 
