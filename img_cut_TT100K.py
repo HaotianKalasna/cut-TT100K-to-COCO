@@ -24,6 +24,7 @@ def anno2id(anno):
             id = 1
     else:
         id = 2
+    return id
 
 cut_height = 128
 cut_width = 128
