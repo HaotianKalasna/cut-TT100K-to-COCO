@@ -1,4 +1,5 @@
-import os 
+import os
+import shutil 
 import cv2
 import json
 
@@ -11,15 +12,13 @@ def anno2id(anno):
             id = 0
     elif c1 == 'p':
         if c2 in ['h','m','w','a']:
-            id = 7
-        elif c2 in ['c','d']:
-            id = 5
-        elif c2 in ['e','g','s']:
             id = 6
+        elif c2 in ['e','g','s']:
+            id = 5
         elif c2 == 'l':
             id = 4
         elif c2 == 'r':
-            id = 8
+            id = 7
         else:
             id = 1
     else:
@@ -33,6 +32,8 @@ folders = ["trainval","test"]
 # 目录设置和创建
 data_path = "data/"
 coco_path = "cocott/"
+if os.path.exists(coco_path):
+    shutil.rmtree(coco_path)
 for folder in folders:
     os.makedirs(coco_path+folder+"/", 0o777)
 os.makedirs(coco_path+"annotations/", 0o777)
@@ -48,10 +49,9 @@ categories = [dict(id=0, name="indication"),
               dict(id=2, name="warnning"),
               dict(id=3, name="minspeedlimit"),
               dict(id=4, name="maxspeedlimit"),
-              dict(id=5, name="inspection"),
-              dict(id=6, name="giveway"),
-              dict(id=7, name="hmwalimit"),
-              dict(id=8, name="speedlimitremove"),
+              dict(id=5, name="giveway"),
+              dict(id=6, name="hmwalimit"),
+              dict(id=7, name="speedlimitremove"),
               ]
 trainval_json_data["categories"]   = categories
 test_json_data["categories"]    = categories

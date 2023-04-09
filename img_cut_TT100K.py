@@ -1,4 +1,5 @@
-import os 
+import os
+import shutil 
 import cv2
 import json
 
@@ -33,6 +34,8 @@ folders = ["train","test","val"]
 # 目录设置和创建
 data_path = "data/"
 coco_path = "coco/"
+if os.path.exists(coco_path):
+    shutil.rmtree(coco_path)
 for folder in folders:
     os.makedirs(coco_path+folder+"2017/", 0o777)
 os.makedirs(coco_path+"annotations/", 0o777)
